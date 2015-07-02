@@ -1,0 +1,8 @@
+class BaseBackupService:
+    pass
+
+class SimpleBackupService(BaseBackupService):
+
+    def backup(self, files, storage):
+        for file in files:
+            storage.store(file)

@@ -8,6 +8,7 @@ class BaseBackupService:
 
     def __init__(self, storage):
         self.storage = storage
+        self.status_list = list()
 
     def backup(self, backup_src_path):
         try:
@@ -17,11 +18,12 @@ class BaseBackupService:
                     current_file_path = os.path.join(root, name)
                     self.storage.store(current_file_path)
                     self.update_status(current_file_path, True)
+            storage.update_status(self.status_list)
         except (UploadFailureException) as e:
             self.update_status(current_file_path, False)
                 
     def update_status(self, file_path, status):
-        pass
+        status_list.append({'path':file_path, 'status':status})
 
     def init_MD_repository(backup_src_path):
         """Checks if the Metadata repository is there, 
